@@ -1,0 +1,40 @@
+{
+  "name": "create-react-app-lambda",
+  "version": "0.5.0",
+  "private": true,
+  "dependencies": {
+    "@crystallize/node-klarna": "^4.8.0",
+    "@crystallize/node-vipps": "^0.1.4",
+    "@mollie/api-client": "^3.4.0",
+    "@nerdenough/mjml-ncc-bundle": "^1.1.1",
+    "@sendgrid/mail": "^7.4.1",
+    "apollo-server-lambda": "^2.19.2",
+    "cookie": "^0.4.1",
+    "graphql": "14.6.0",
+    "graphql-tag": "^2.11.0",
+    "invariant": "^2.2.4",
+    "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.1",
+    "stripe": "^8.130.0"
+  },
+  "scripts": {
+    "dev:boilerplate": "rm -rf src && cp -r ../../src src && npm run start",
+    "start": "dotenv-extended --path=.env.local netlify-lambda serve ./lambda -p 3001",
+    "build": "netlify-lambda build ./lambda -p 3001"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "dotenv-extended": "^2.9.0",
+    "eslint": "^7.18.0",
+    "netlify-lambda": "^1.4.5",
+    "prettier": "2.2.1"
+  }
+}

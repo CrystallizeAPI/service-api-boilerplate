@@ -1,0 +1,4 @@
+[build]
+  command = "yarn build" # the command you run to build this file
+  functions = "built-lambda" # netlify-lambda builds to this folder AND Netlify reads functions from here
+  environment = { CRYSTALLIZE_TENANT_IDENTIFIER = "furniture", NODE_VERSION = "14.15.3", JWT_SECRET = "test" }
