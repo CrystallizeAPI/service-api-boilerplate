@@ -1,18 +1,17 @@
 const invariant = require("invariant");
 
-const VIPPS_CLIENT_ID = process.env.VIPPS_CLIENT_ID;
-const VIPPS_CLIENT_SECRET = process.env.VIPPS_CLIENT_SECRET;
-const VIPPS_SUB_KEY = process.env.VIPPS_SUB_KEY;
+const env = require("../../../lib/env");
+
+const VIPPS_CLIENT_ID = env("VIPPS_CLIENT_ID");
+const VIPPS_CLIENT_SECRET = env("VIPPS_CLIENT_SECRET");
+const VIPPS_SUB_KEY = env("VIPPS_SUB_KEY");
 
 let client;
 module.exports = {
   getClient: () => {
-    invariant(VIPPS_CLIENT_ID, "process.env.VIPPS_CLIENT_ID is not defined");
-    invariant(
-      VIPPS_CLIENT_SECRET,
-      "process.env.VIPPS_CLIENT_SECRET is not defined"
-    );
-    invariant(VIPPS_SUB_KEY, "process.env.VIPPS_SUB_KEY is not defined");
+    invariant(VIPPS_CLIENT_ID, "VIPPS_CLIENT_ID is not defined");
+    invariant(VIPPS_CLIENT_SECRET, "VIPPS_CLIENT_SECRET is not defined");
+    invariant(VIPPS_SUB_KEY, "VIPPS_SUB_KEY is not defined");
 
     if (!client) {
       const VippsClient = require("@crystallize/node-vipps");

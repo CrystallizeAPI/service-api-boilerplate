@@ -1,25 +1,26 @@
 const invariant = require("invariant");
 const fetch = require("node-fetch");
 
-const CRYSTALLIZE_TENANT_IDENTIFIER = process.env.CRYSTALLIZE_TENANT_IDENTIFIER;
-const CRYSTALLIZE_ACCESS_TOKEN_ID = process.env.CRYSTALLIZE_ACCESS_TOKEN_ID;
-const CRYSTALLIZE_ACCESS_TOKEN_SECRET =
-  process.env.CRYSTALLIZE_ACCESS_TOKEN_SECRET;
+const env = require("../../lib/env");
+
+const CRYSTALLIZE_TENANT_IDENTIFIER = env("CRYSTALLIZE_TENANT_IDENTIFIER");
+const CRYSTALLIZE_ACCESS_TOKEN_ID = env("CRYSTALLIZE_ACCESS_TOKEN_ID");
+const CRYSTALLIZE_ACCESS_TOKEN_SECRET = env("CRYSTALLIZE_ACCESS_TOKEN_SECRET");
 
 invariant(
   CRYSTALLIZE_TENANT_IDENTIFIER,
-  "Missing process.env.CRYSTALLIZE_TENANT_IDENTIFIER"
+  "Missing CRYSTALLIZE_TENANT_IDENTIFIER"
 );
 
 function createApiCaller(uri) {
   return async function callApi({ query, variables, operationName }) {
     invariant(
       CRYSTALLIZE_ACCESS_TOKEN_ID,
-      "Missing process.env.CRYSTALLIZE_ACCESS_TOKEN_ID"
+      "Missing CRYSTALLIZE_ACCESS_TOKEN_ID"
     );
     invariant(
       CRYSTALLIZE_ACCESS_TOKEN_SECRET,
-      "Missing process.env.CRYSTALLIZE_ACCESS_TOKEN_SECRET"
+      "Missing CRYSTALLIZE_ACCESS_TOKEN_SECRET"
     );
 
     const response = await fetch(uri, {

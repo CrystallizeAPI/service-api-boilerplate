@@ -1,5 +1,7 @@
-const KLARNA_USERNAME = process.env.KLARNA_USERNAME;
-const KLARNA_PASSWORD = process.env.KLARNA_PASSWORD;
+const env = require("../../../lib/env");
+
+const KLARNA_USERNAME = env("KLARNA_USERNAME");
+const KLARNA_PASSWORD = env("KLARNA_PASSWORD");
 
 const { getClient } = require("./utils");
 
@@ -8,7 +10,8 @@ const push = require("./push");
 const capture = require("./capture");
 
 module.exports = {
-  enabled: Boolean(KLARNA_USERNAME && KLARNA_PASSWORD),
+  _enabled: Boolean(KLARNA_USERNAME && KLARNA_PASSWORD),
+  enabled: false,
   frontendConfig: {},
   getClient,
   renderCheckout,

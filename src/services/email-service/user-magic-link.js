@@ -1,9 +1,9 @@
-const { sendEmail } = require("./utils");
-
 module.exports = async function sendMagicLinkLogin({ loginLink, email }) {
   try {
-    const mjml2html = require("mjml");
-    const { html } = mjml2html(`
+    const { sendEmail } = require("./utils");
+    const mjml2html = require("./mjml");
+
+    const { html } = await mjml2html(`
       <mjml>
         <mj-body>
           <mj-section>
@@ -26,7 +26,9 @@ module.exports = async function sendMagicLinkLogin({ loginLink, email }) {
       success: true,
     };
   } catch (error) {
-    console.log(error);
+    console.log("ERROR IN SEND MAGIC LINK");
+    console.log(error.stacktrace);
+    console.log(JSON.stringify(error, null, 2));
     return {
       success: false,
       error,

@@ -1,6 +1,8 @@
 const invariant = require("invariant");
 
-const VIPPS_MERCHANT_SERIAL = process.env.VIPPS_MERCHANT_SERIAL;
+const env = require("../../../lib/env");
+
+const VIPPS_MERCHANT_SERIAL = env("VIPPS_MERCHANT_SERIAL");
 
 module.exports = async function initiateVippsPayment({
   checkoutModel,
@@ -11,10 +13,7 @@ module.exports = async function initiateVippsPayment({
 
   const { getClient } = require("./utils");
 
-  invariant(
-    VIPPS_MERCHANT_SERIAL,
-    "process.env.VIPPS_MERCHANT_SERIAL is undefined"
-  );
+  invariant(VIPPS_MERCHANT_SERIAL, "VIPPS_MERCHANT_SERIAL is undefined");
 
   const { basketModel, customer, confirmationURL, checkoutURL } = checkoutModel;
   const { serviceCallbackHost, user } = context;

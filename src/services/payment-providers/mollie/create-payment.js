@@ -4,6 +4,7 @@ module.exports = async function createMolliePayment({
 }) {
   const basketService = require("../../basket-service");
   const crystallize = require("../../crystallize");
+  const env = require("../../../lib/env");
 
   const { getClient } = require("./utils");
 
@@ -65,7 +66,7 @@ module.exports = async function createMolliePayment({
   const validMollieOrder = {
     amount: {
       currency:
-        process.env.MOLLIE_DEFAULT_CURRENCY || total.currency.toUpperCase(),
+        env('MOLLIE_DEFAULT_CURRENCY') || total.currency.toUpperCase(),
       value: total.gross.toFixed(2),
     },
     customerId: mollieCustomer.id,

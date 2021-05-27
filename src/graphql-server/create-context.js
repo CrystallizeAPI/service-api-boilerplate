@@ -1,5 +1,5 @@
 const userService = require("../services/user-service");
-const getHost = require("../lib/get-host");
+const env = require("../lib/env");
 
 module.exports = function createContext({
   apiPathPrefix,
@@ -7,7 +7,7 @@ module.exports = function createContext({
   refreshUserToken,
 }) {
   return function context(args) {
-    const { cookies, headers } = normaliseRequest(args);
+    const { cookies, headers, host } = normaliseRequest(args);
 
     const user = userService.authenticate(
       cookies[userService.COOKIE_USER_TOKEN_NAME]
@@ -25,7 +25,7 @@ module.exports = function createContext({
     }
 
     // Determine the URL for webhook callbacks (ex: https://service-api.example.com/api)
-    const publicHost = getHost({ headers }) + apiPathPrefix;
+    const publicHost = (host || getHost({ headers })) + apiPathPrefix;
 
     /**
      * serviceCallbackHost is used for third party services callbacks
@@ -40,7 +40,7 @@ module.exports = function createContext({
      *  - publicHost: https://my-service-api.shop.com/api
      *  - serviceCallbackHost: https://my-service-api.shop.com/api
      */
-    let serviceCallbackHost = process.env.SERVICE_CALLBACK_HOST;
+    let serviceCallbackHost = env("SERVICE_CALLBACK_HOST");
     if (serviceCallbackHost) {
       if (!serviceCallbackHost.endsWith(apiPathPrefix)) {
         serviceCallbackHost += apiPathPrefix;

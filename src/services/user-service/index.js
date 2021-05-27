@@ -1,11 +1,12 @@
 const invariant = require("invariant");
 
 const crystallize = require("../crystallize");
+const env = require("../../lib/env");
 
 /**
  * Todo: link to good JWT intro
  */
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = env("JWT_SECRET");
 
 // Cookie config for user JWTs
 const COOKIE_USER_TOKEN_NAME = "user-token";
@@ -40,7 +41,7 @@ module.exports = {
   COOKIE_USER_TOKEN_MAX_AGE,
   COOKIE_REFRESH_TOKEN_MAX_AGE,
   authenticate(token) {
-    invariant(JWT_SECRET, "process.env.JWT_SECRET is not defined");
+    invariant(JWT_SECRET, "JWT_SECRET is not defined");
 
     if (!token) {
       return null;
@@ -57,7 +58,7 @@ module.exports = {
     };
   },
   async sendMagicLink({ email, redirectURLAfterLogin, context }) {
-    invariant(JWT_SECRET, "process.env.JWT_SECRET is not defined");
+    invariant(JWT_SECRET, "JWT_SECRET is not defined");
 
     const { publicHost } = context;
 
@@ -115,7 +116,7 @@ module.exports = {
     return { success };
   },
   validateMagicLinkToken(token) {
-    invariant(JWT_SECRET, "process.env.JWT_SECRET is not defined");
+    invariant(JWT_SECRET, "JWT_SECRET is not defined");
 
     /**
      * Here we would want to fetch an entry matching the provided token from our

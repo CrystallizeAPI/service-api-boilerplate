@@ -1,6 +1,6 @@
 const gql = require("graphql-tag");
 
-module.exports = gql`
+module.exports = (gql.default || gql)`
   scalar JSON
 
   type Query {

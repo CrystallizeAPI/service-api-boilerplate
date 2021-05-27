@@ -1,6 +1,6 @@
 module.exports = async function sendOrderConfirmation(orderId) {
   try {
-    const mjml2html = require("mjml");
+    const mjml2html = require("./mjml");
 
     const { formatCurrency } = require("../../lib/currency");
     const { orders } = require("../crystallize");

@@ -1,0 +1,25 @@
+name = "service-api"
+type = "webpack"
+zone_id = ""
+account_id = "662a928624ac1d1ff89c1eb80a2bb562"
+route = ""
+workers_dev = true
+webpack_config = "webpack.config.js"
+
+vars = {CRYSTALLIZE_TENANT_IDENTIFIER = "furniture", SERVICE_CALLBACK_HOST = ""} # Creates & Sets Environment Variable FOO to "some text"
+
+# Enable a kv-namespace to use the KV caching feature
+#
+# kv-namespaces = [
+#   { binding = "WORKERS_GRAPHQL_CACHE", id = "" }
+# ]
+
+
+# environment configuration
+# [env.staging]
+# name = "my-worker-staging"
+# route = "staging.example.com/*"
+
+# environment configuration
+[env.production]
+workers_dev= true

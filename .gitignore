@@ -38,5 +38,7 @@ yarn-error.log*
 yarn.lock
 package-lock.json
 
-# Platform vendor src copy files
-platform-templates/*/src
+# Platform vendor src copied files
+platform-templates/vercel/src
+platform-templates/serverless-aws/src
+platform-templates/cloudflare/api
