@@ -1,35 +1,33 @@
-const checkoutNodeJssdk = require("@paypal/checkout-server-sdk");
-const { paypal: PaypalClient } = require("./init-client");
-const toCrystallizeOrderModel = require("./to-crystallize-order-model");
-
 async function confirmPaypalPayment({ checkoutModel, orderId, context }) {
-  const request = new checkoutNodeJssdk.orders.OrdersCaptureRequest(orderId);
-  request.requestBody({});
-
+  const checkoutNodeJssdk = require("@paypal/checkout-server-sdk");
+  
   const crystallize = require("../../crystallize");
   const basketService = require("../../basket-service");
-  const { basketModel } = checkoutModel;
-  const basket = await basketService.get({ basketModel, context });
+  const { paypal: PaypalClient } = require("./init-client");
+  const toCrystallizeOrderModel = require("./to-crystallize-order-model");
 
-  let order;
   try {
-    const capture = await PaypalClient().execute(request);
-    const orderModel = toCrystallizeOrderModel(basket, capture);
+    const { basketModel } = checkoutModel;
+    const basket = await basketService.get({ basketModel, context });
+  
+    const response = await PaypalClient().execute(
+      new checkoutNodeJssdk.orders.OrdersGetRequest(orderId)
+    );
 
-    order = await crystallize.orders.create(orderModel);
+    const order = await crystallize.orders.create(
+      toCrystallizeOrderModel(basket, response.result)
+    );
+
+    return {
+      success: true,
+      orderId: order.id,
+    };
   } catch (err) {
     console.error(err);
-    return {
-      success: false,
-      orderId: "",
-    };
   }
-
-  // return order id
-
+  
   return {
-    success: true,
-    orderId: order.id,
+    success: false
   };
 }
 

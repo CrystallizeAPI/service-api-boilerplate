@@ -1,15 +1,20 @@
-const paypal = require("@paypal/checkout-server-sdk");
-const { paypal: PaypalClient } = require("./init-client");
 
 async function createPaypalPayment({ checkoutModel, context }) {
-  // calculate cost using checkout model
+  const paypal = require("@paypal/checkout-server-sdk");
 
+  const { paypal: PaypalClient } = require("./init-client");
   const basketService = require("../../basket-service");
+
   const { basketModel } = checkoutModel;
+
+  // Get a verified basket from the basket service
   const basket = await basketService.get({ basketModel, context });
 
   const request = new paypal.orders.OrdersCreateRequest();
+  
+  // Get the complete resource representation
   request.prefer("return=representation");
+  
   request.requestBody({
     intent: "CAPTURE",
     purchase_units: [

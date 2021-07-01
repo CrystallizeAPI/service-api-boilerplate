@@ -41,6 +41,7 @@ module.exports = function orderPipelineStageChanged(payload) {
         break;
       case "Delivered":
         console.log("Capture order amount from payment provider");
+        // require("../../services/payment-providers/stripe/capture-payment")(order.id)
         break;
       case "Cancelled":
         console.log("Refund order amount from payment provider");

@@ -258,7 +258,7 @@ module.exports = gql`
     createPayment(checkoutModel: CheckoutModelInput!): PaypalPaymentResponse!
     confirmPayment(
       checkoutModel: CheckoutModelInput!
-      orderId: String!
+      orderId: String
     ): PaypalPaymentResponse!
   }
 
