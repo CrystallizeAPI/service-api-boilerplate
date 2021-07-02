@@ -25,7 +25,7 @@ async function capturePaypalPayment(crystallizeOrderId) {
         const captureId =
           response.result.purchase_units?.[0]?.payments?.captures?.[0]?.id ||
           "N/A";
-        debugger;
+
         // Update Crystallize order with payment status
         await crystallize.orders.update(crystallizeOrderId, {
           meta: [
