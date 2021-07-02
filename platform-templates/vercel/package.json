@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev:boilerplate": "rm -rf src && cp -r ../../src src && npm run dev",
-    "dev": "NODE_OPTIONS='--inspect-brk' next dev -p 3001",
+    "dev": "next dev -p 3001",
+    "dev:inspect": "NODE_OPTIONS='--inspect-brk' next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001"
   },

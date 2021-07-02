@@ -14,6 +14,7 @@ async function capturePaypalPayment(crystallizeOrderId) {
       const PAYPAL_ORDER_STATUS = crystallizeOrder.meta?.find(
         (m) => m.key === "PAYPAL_ORDER_STATUS"
       )?.value;
+
       if (PAYPAL_ORDER_STATUS === "APPROVED") {
         const request = new checkoutNodeJssdk.orders.OrdersCaptureRequest(
           paypalOrderId
@@ -22,6 +23,7 @@ async function capturePaypalPayment(crystallizeOrderId) {
         const response = await PaypalClient().execute(request);
 
         const status = response.result.status;
+
         const captureId =
           response.result.purchase_units?.[0]?.payments?.captures?.[0]?.id ||
           "N/A";
