@@ -1,5 +1,4 @@
 function toCrystallizeOrderModel(basket, order) {
-  debugger;
   const { payer, purchase_units } = order;
   const { shipping } = purchase_units[0];
   const { address } = shipping;
@@ -9,17 +8,23 @@ function toCrystallizeOrderModel(basket, order) {
    * Use email or payer id as the customer identifier in Crystallize.
    */
   const identifier = order.payer.email_address || order.payer.payer_id;
-  
+
   return {
     cart: basket.cart,
     total: basket.total,
     payment: [
       {
-        provider: 'paypal',
+        provider: "paypal",
         paypal: {
-          orderId
-        }
-      }
+          orderId,
+        },
+      },
+    ],
+    meta: [
+      {
+        key: "PAYPAL_ORDER_STATUS",
+        value: order.status,
+      },
     ],
     customer: {
       identifier,
